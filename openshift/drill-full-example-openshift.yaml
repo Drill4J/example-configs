@@ -237,11 +237,11 @@ parameters:
   - displayName: Drill4J back-end version
     name: BACK_VERSION
     required: true
-    value: "0.7.0-111"
+    value: "0.7.0"
   - displayName: Drill4J plugin version
     name: TEST2CODE_PLUGIN_VERSION
     required: true
-    value: "0.7.0-140"
+    value: "0.7.0"
   - displayName: Timeout for scanning classes of application (default 90s)
     name: DRILL_AGENTS_SOCKET_TIMEOUT
     required: true
@@ -261,7 +261,7 @@ parameters:
   - displayName: Drill4J agent version
     name: AGENT_VERSION
     required: true
-    value: "0.7.0-30"
+    value: "0.7.0"
   - displayName: Drill4J autotest agent version
     name: AUTOTEST_AGENT_VERSION
     required: true

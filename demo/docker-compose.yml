@@ -2,9 +2,9 @@ version: '3'
 
 services:
   drill-admin:
-    image: drill4j/admin:0.7.0-111
+    image: drill4j/admin:0.7.0
     environment:
-      - TEST2CODE_PLUGIN_VERSION=0.7.0-140
+      - TEST2CODE_PLUGIN_VERSION=0.7.0
       - LOG_LEVEL=INFO
       - DRILL_DEFAULT_PACKAGES=org/springframework/samples/petclinic
     ports:
@@ -25,7 +25,7 @@ services:
       - agent-files:/data
 
   agent-files:
-    image: drill4j/java-agent:0.7.0-30
+    image: drill4j/java-agent:0.7.0
     volumes:
       - agent-files:/java-agent
 
