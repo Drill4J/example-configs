@@ -1,0 +1,30 @@
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.epam.drill.agent.runner</groupId>
+            <artifactId>maven</artifactId>
+            <version>0.3.3</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>autotest</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <drill>
+                    <version>0.22.1</version>
+                    <agentId><!--YOUR AGENT ID--></agentId>
+                    <adminHost><!--DRILL-ADMIN SERVICE HOST--></adminHost> 
+                    <adminPort><!--DRILL-ADMIN SERVICE PORT--></adminPort>
+
+                    <!-- <groupId>YOUR GROUP ID</groupId> -->
+
+                    <!-- optional logging -->
+                    <!-- <logLevel>TRACE</logLevel>
+                    <logFile>./drill4j-autotest-agent.log</logFile> -->
+                </drill>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>

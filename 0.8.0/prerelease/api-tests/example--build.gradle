@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'com.epam.drill.agent.runner.autotest' version '0.3.3'
+}
+
+group 'com.epam'
+version '1.0-SNAPSHOT'
+
+allprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        apply plugin: 'java'
+        apply plugin: 'com.epam.drill.agent.runner.autotest'
+    }
+
+    drill {
+        version = "0.22.1"
+        agentId = /*YOUR AGENT ID*/
+        adminHost = /* DRILL-ADMIN SERVICE HOST */
+        adminPort = /* DRILL-ADMIN SERVICE PORT */
+        // groupId = /*YOUR GROUP ID*/
+
+        // optional logging
+        // logLevel= "TRACE"
+        // logFile = "./drill4j-autotest-agent.log"
+    }
+}
