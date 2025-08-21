@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-app
+  namespace: example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-app
+  template:
+    metadata:
+      labels:
+        app: example-app
+    spec:
+
+      {{- if .Values.drillAgent.version }}
+      initContainers:
+        - name: drill-init-file-downloader
+          image: "{{ .Values.drillAgent.image }}:{{ .Values.drillAgent.version }}"
+          volumeMounts:
+            - name: drill-agent-files
+              mountPath: /opt/drill-agent
+      {{- end }}
+
+      containers:
+        - name: example-app
+          image: "drill4j/real-world-spring-api:java-and-js-coverage-0.1.0"
+          ports:
+            - containerPort: 9001
+          env:
+          {{- if .Values.drillAgent.version }}
+            - name: JAVA_TOOL_OPTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: drill-config
+                  key: JAVA_TOOL_OPTIONS
+            - name: DRILL_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: drill-config
+                  key: DRILL_ADMIN_ADDRESS
+            - name: DRILL_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: drill-config
+                  key: DRILL_API_KEY        
+            - name: DRILL_GROUP_ID
+              value: "cortex"
+            - name: DRILL_ENV_ID
+              value: "demo-1"                 # сюда ставить название энва (в духе beta, stage, etc)
+              
+              # уникальны для деплоймента / сервиса
+            - name: DRILL_APP_ID
+              value: "backend"                # уникальный идентификатор, можно по названию сервиса. (латиница, lowercase, -) наример my-auth-service                   
+            - name: DRILL_BUILD_VERSION
+              value: "0.1.0"                  # сюда передавать версию тестируемого сервиса
+            - name: DRILL_PACKAGE_PREFIXES
+              value: "io/spring"              # поставить префикс ваших пакетов (например если ваш топ-левел пакет my.org, то писать my/org)
+
+          {{- end }}
+
+          {{- if .Values.drillAgent.version }}
+          volumeMounts:
+            - name: drill-agent-files
+              mountPath: /opt/drill-agent
+          {{- end }}
+
+      {{- if .Values.drillAgent.version }}
+      volumes:
+        - name: drill-agent-files
+          emptyDir: {}
+      {{- end }}

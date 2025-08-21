@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drill-config
+  namespace: drill4j
+data:
+  JAVA_TOOL_OPTIONS: "-agentpath:/opt/drill-agent/libdrill_agent.so"
+  DRILL_ADMIN_ADDRESS: "https://:8090/api" # выставить кластерный хост
+  DRILL_API_KEY: "" # сгенерировать в /ui, пароль admin/admin

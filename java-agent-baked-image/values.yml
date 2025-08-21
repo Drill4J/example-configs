@@ -1,0 +1,3 @@
+drillAgent:
+  image: ghcr.io/drill4j/java-agent
+  version: "0.9.10"
